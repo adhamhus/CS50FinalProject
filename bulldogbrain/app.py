@@ -31,7 +31,7 @@ def after_request(response):
 @app.route("/")
 @login_required
 def home():
-    return render_template("login.html")
+    return render_template("urgent.html")
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -125,6 +125,48 @@ def register():
 
         # Redirect user to home page
         return redirect("/")
+
+    # User reached route via GET (as by clicking a link or via redirect)
+    else:
+        return render_template("register.html")
+
+@app.route("/list", methods=["GET", "POST"])
+def list():
+    """List view of assignments and events"""
+    
+    if request.method == "POST":
+
+        # Ensure username was submitted
+        if not request.form.get("username"):
+            return apology("must provide username", 400)
+
+        # Ensure password was submitted
+        elif not request.form.get("password"):
+            return apology("must provide password", 400)
+
+        # Ensure password was retyped
+        elif not request.form.get("confirmation"):
+            return apology("must retype password", 400)
+
+        # Establishes variables for the returned values of the register form
+        username = request.form.get("username")
+        password = request.form.get("password")
+        confirmation = request.form.get("confirmation")
+
+        # Ensure retyped password matches password
+        if confirmation != password:
+            return apology("passwords must match", 400)
+
+        # Makes sure user inputs a unique username
+        users = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
+        if len(users) > 0:
+            return apology("Unique username required", 400)
+
+        # Query database for username
+        id = db.execute("INSERT INTO users (username, hash) VALUES(?, ?)",
+                        username,
+                        generate_password_hash(password))
+        session["user_id"] = id
 
     # User reached route via GET (as by clicking a link or via redirect)
     else:
