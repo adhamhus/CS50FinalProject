@@ -31,7 +31,44 @@ def after_request(response):
 @app.route("/")
 @login_required
 def home():
-    return render_template("urgent.html")
+    return render_template("login.html")
+
+@app.route("/assignmentsform")
+@login_required
+def assignmentsform():
+    if request.method == "POST":
+        
+        title = request.form.get("title")
+        course = request.form.get("course")
+        month = request.form.get("month")
+        day = request.form.get("day")
+        year = request.form.get("year")
+        hour = request.form.get("hour")
+        minute = request.form.get("minute")
+        rank = request.form.get("rank")
+        notes = request.form.get("notes")
+
+        db.execute("INSERT INTO assignments (title, course, month, day, year, hour, minute, importance, notes, user_id) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                        title,
+                        course,
+                        month,
+                        day,
+                        year,
+                        hour,
+                        minute,
+                        rank,
+                        notes,
+                        session["user_id"])
+
+        return render_template("list.html")
+        
+    else:
+        return render_template("assignmentsform.html")
+
+@app.route("/eventsform")
+@login_required
+def eventsform():
+    return render_template("eventsform.html")
 
 @app.route("/urgent")
 @login_required
@@ -135,14 +172,12 @@ def register():
     else:
         return render_template("register.html")
 
-# @app.route("/list", methods=["GET", "POST"])
-# def list():
-#     """List view of assignments and events"""
-    
-#     if request.method == "POST":
-
-        
-
-#     # User reached route via GET (as by clicking a link or via redirect)
-#     else:
-#         return render_template("register.html")
+@app.route("/list", methods=["GET", "POST"])
+def list():
+    """List view of assignments and events"""
+    # Populates the list html table
+    assignments = db.execute(
+        "SELECT title, course, importance, month, day, year, hour, minute, notes FROM assignments WHERE user_id = ? ORDER BY year DESC, month DESC, day DESC, hour DESC, minute DESC", session["user_id"])
+    events = db.execute(
+        "SELECT title, month, day, year, hour, minute, importance, notes FROM assignments WHERE user_id = ? ORDER BY year DESC, month DESC, day DESC, hour DESC, minute DESC", session["user_id"])
+    return render_template("list.html", assignments=assignments, events=events)
