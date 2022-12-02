@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Add Assignment
+{% endblock %}
+
+{% block main %}
+    <form action="/addAssignment" method="post">
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="title" name="title" placeholder="Name of Assignment" type="text" required>
+        </div>
+        <div class="mb-3">
+            <input autocomplete="off" class="form-control mx-auto w-auto" id="course" name="course" placeholder="Assignment course" type="text" required>
+        </div>
+        <div class="mb-3">
+            <input autocomplete="off" class="form-control mx-auto w-auto" id="month" name="month" placeholder="Month due" type="integer" maxlength="12">
+        </div>
+        <div class="mb-3">
+            <input autocomplete="off" class="form-control mx-auto w-auto" id="day" name="day" placeholder="Day due" type="integer" required maxlength="31">
+        </div>
+        <div class="mb-3">
+            <input autocomplete="off" class="form-control mx-auto w-auto" id="year" name="year" placeholder="Year due" type="integer" required>
+        </div>
+        <div class="mb-3">
+            <input autocomplete="off" class="form-control mx-auto w-auto" id="hour" name="hour" placeholder="Hour due" type="integer" required>
+        </div>
+        <div class="mb-3">
+            <input autocomplete="off" class="form-control mx-auto w-auto" id="minute" name="minute" placeholder="Minute due" type="integer" required maxlength="59">
+        </div>
+        <div class="mb-3">
+            <input autocomplete="off" class="form-control mx-auto w-auto" id="rank" name="rank" placeholder="Importance of Assignment (1-3)" type="integer" minlength="1" maxlength="3">
+        </div>
+        <div class="mb-3">
+            <input class="form-control mx-auto w-auto" id="notes" name="notes" placeholder="Notes" type="Text">
+        </div>
+        <button class="btn btn-primary" type="submit">Add Assignment</button>
+    </form>
+{% endblock %}

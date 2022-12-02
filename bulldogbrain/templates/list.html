@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    List View
+{% endblock %}
+
+{% block main %}
+<h1>List view of events and assignments</h1>
+
+    <h2>Assignments</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Assignment</th>
+                    <th>Course</th>
+                    <th>Due Date</th>
+                    <th>Importance</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- TODO: Loop through the database entries to display them in this table -->
+                {% for assignment in assignments %}
+                <tr>
+                    <td>{{ assignments.title }}</td>
+                    <td>{{ assignments.course }}</td>
+                    <td>{{ assignments.month }}/{{ assignments.day }}/{{ assignments.year }} @ {{ assignments.hour }}:{{ assignments.minute }}</td>
+                    <td>{{ assignments.importance }}</td>
+                    <td>{{ assignments.notes }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2>Events</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Event</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Location</th>
+                    <th>Importance</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- TODO: Loop through the database entries to display them in this table -->
+                {% for event in events %}
+                <tr>
+                    <td>{{ events.title }}</td>
+                    <td>{{ events.month }}/{{ events.day }}/{{ events.year }}</td>
+                    <td>{{ events.hour }}:{{ events.minute }}</td>
+                    <td>{{ events.location }}</td>
+                    <td>{{ events.importance }}</td>
+                    <td>{{ events.notes }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+{% endblock %}
