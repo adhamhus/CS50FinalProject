@@ -3,7 +3,30 @@
 {% block title %}
     List View
 {% endblock %}
+<h1>List view of </h1>
 
+<h2>Assignments</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Shares</th>
+                <th>Price</th>
+                <th>Transacted</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- TODO: Loop through the database entries to display them in this table -->
+            {% for purchase in purchases %}
+            <tr>
+                <td>{{ purchase.stock_symbol }}</td>
+                <td>{{ purchase.number_of_shares }}</td>
+                <td>{{ purchase.Price | usd }}</td>
+                <td>{{ purchase.transaction_time }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% block main %}
 
 {% endblock %}
