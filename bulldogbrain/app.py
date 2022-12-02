@@ -33,7 +33,7 @@ def after_request(response):
 def home():
     return render_template("login.html")
 
-@app.route("/assignmentsform")
+@app.route("/assignmentsform", methods=["GET", "POST"])
 @login_required
 def assignmentsform():
     if request.method == "POST":

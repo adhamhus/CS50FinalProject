@@ -6,7 +6,8 @@
 
 {% block main %}
 <h1>List view of events and assignments</h1>
-
+<div class="row">
+<div class="column">
     <h2>Assignments</h2>
         <table class="table table-striped">
             <thead>
@@ -31,7 +32,8 @@
                 {% endfor %}
             </tbody>
         </table>
-
+    </div>
+    <div class="column">
         <h2>Events</h2>
         <table class="table table-striped">
             <thead>
@@ -58,4 +60,6 @@
                 {% endfor %}
             </tbody>
         </table>
+    </div>
+</div>
 {% endblock %}
