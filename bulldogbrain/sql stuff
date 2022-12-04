@@ -1,0 +1,81 @@
+-- for creating assignments table
+CREATE TABLE 'assignments'(
+    'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
+    'title' TEXT, 
+    'course' TEXT, 
+    'deadline' TEXT, 
+    'importance' INTEGER, 
+    'notes' TEXT, 
+    'user_id' INTEGER,
+    FOREIGN KEY (user_id)
+    REFERENCES users (id));
+
+-- for creating events table
+CREATE TABLE 'events'(
+    'event_id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
+    'title' TEXT,
+    'location' TEXT, 
+    'start_date' TEXT,
+    'start_time' TEXT, 
+    'end_date' TEXT,
+    'end_time' TEXT,
+    'importance' INTEGER, 
+    'notes' TEXT, 
+    'user_id' INTEGER,
+    FOREIGN KEY (user_id)
+    REFERENCES users (id));
+
+-- FOR CONVERTING TO 12-HOUR CLOCK
+--from https://stackoverflow.com/questions/535855/can-you-format-24-hour-time-string-into-12-hour-time-string-with-am-pm
+
+-- SELECT 
+--     PatientName, 
+--     CASE WHEN 
+--         StrFTime('%H', AppointmentTime) % 12 = 0 THEN 12
+--         ELSE StrFTime('%H', AppointmentTime) % 12 END 
+--     || ':' ||
+--         StrFTime('%M', AppointmentTime)
+--     || ' ' ||
+--     CASE WHEN
+--         StrFTime('%H', AppointmentTime) > 12 THEN 'PM'
+--         ELSE 'AM' END   
+--     `APP_TIME`
+-- From Patients;
+
+-- for assignments
+SELECT  
+    CASE WHEN 
+        StrFTime('%H', deadline) % 12 = 0 THEN 12
+        ELSE StrFTime('%H', deadline) % 12 END 
+    || ':' ||
+        StrFTime('%M', deadline)
+    || ' ' ||
+    CASE WHEN
+        StrFTime('%H', deadline) > 12 THEN 'PM'
+        ELSE 'AM' END 
+    `time`
+FROM assignments;    
+
+CASE WHEN StrFTime('%H', deadline) % 12 = 0 THEN 12 ELSE StrFTime('%H', deadline) % 12 END || ':' || StrFTime('%M', deadline) || ' ' || CASE WHEN StrFTime('%H', deadline) > 12 THEN 'PM' ELSE 'AM' END `time`
+
+--for events
+CASE WHEN StrFTime('%H', start_time) % 12 = 0 THEN 12 ELSE StrFTime('%H', start_time) % 12 END || ':' || StrFTime('%M', start_time) || ' ' || CASE WHEN StrFTime('%H', start_time) > 12 THEN 'PM' ELSE 'AM' END `start_time`
+CASE WHEN StrFTime('%H', end_time) % 12 = 0 THEN 12 ELSE StrFTime('%H', end_time) % 12 END || ':' || StrFTime('%M', end_time) || ' ' || CASE WHEN StrFTime('%H', end_time) > 12 THEN 'PM' ELSE 'AM' END `end_time`
+
+-- to select hours from deadline (%M for minutes)
+SELECT strftime('%H', deadline) FROM assignments WHERE title ='eqrew';
+SELECT strftime('%H', start_time) FROM events WHERE title ='swim practice';
+
+SELECT 
+    title, 
+    CASE WHEN 
+        StrFTime('%H', deadline) % 12 = 0 THEN 12
+        ELSE StrFTime('%H', deadline) % 12 END 
+    || ':' ||
+        StrFTime('%M', deadline)
+    || ' ' ||
+    CASE WHEN
+        StrFTime('%H', deadline) > 12 THEN 'PM'
+        ELSE 'AM' END   
+    `deadline`
+FROM assignments;

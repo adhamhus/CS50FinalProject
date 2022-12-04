@@ -7,7 +7,7 @@
 {% block main %}
 <form action="/eventsform" method="post">
     <div class="mb-3">
-        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="title" name="title" placeholder="Name of Event" type="text" required>
+        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="title" name="title" placeholder="Event Name" type="text" required>
     </div>
     <div class="mb-3">
         <input autocomplete="off" class="form-control mx-auto w-auto" id="location" name="location" placeholder="Location" type="text" required>
@@ -19,24 +19,21 @@
         <input type="radio" id="importance" name="importance" value="NO">
         <label for="no">NO</label><br>
     </div>
-    <div class="mb-3">
-        <input autocomplete="off" class="form-control mx-auto w-auto" id="day" name="day" placeholder="Month" type="number" required min="1" max="12">
+    <div>
+        <label>Start Date:</label>
+        <input autocomplete="off" class="form-control mx-auto w-auto" id="start_date" name="start_date" type="date" required>
+        <label>Start Time: (optional)</label>
+        <input autocomplete="off" class="form-control mx-auto w-auto" id="start_time" name="start_time" type="time">
     </div>
-    <div class="mb-3">
-        <input autocomplete="off" class="form-control mx-auto w-auto" id="year" name="year" placeholder="Day" type="number" required min="1" max="12">
-    </div>
-    <div class="mb-3">
-        <input autocomplete="off" class="form-control mx-auto w-auto" id="hour" name="hour" placeholder="Year" type="number" required min="1" max="2022">
-    </div>
-    <div class="mb-3">
-        <input autocomplete="off" class="form-control mx-auto w-auto" id="minute" name="minute" placeholder="Hour" type="number" required max="24">
-    </div>
-    <div class="mb-3">
-        <input autocomplete="off" class="form-control mx-auto w-auto" id="minute" name="minute" placeholder="Minute" type="number" required max="59">
+    <div>
+        <label>End Date:</label>
+        <input autocomplete="off" class="form-control mx-auto w-auto" id="end_date" name="end_date" type="date" required>
+        <label>End Time: (optional)</label>
+        <input autocomplete="off" class="form-control mx-auto w-auto" id="end_time" name="end_time" type="time">
     </div>
     <div class="mb-3">
         <input class="form-control mx-auto w-auto" id="notes" name="notes" placeholder="Notes" type="Text">
     </div>
-    <button class="btn btn-primary" type="submit">Add Assignment</button>
+    <button class="btn btn-primary" type="submit">Add Event</button>
 </form>
 {% endblock %}

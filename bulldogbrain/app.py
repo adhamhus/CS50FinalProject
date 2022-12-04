@@ -37,38 +37,54 @@ def home():
 @login_required
 def assignmentsform():
     if request.method == "POST":
-        
+
         title = request.form.get("title")
         course = request.form.get("course")
-        month = request.form.get("month")
-        day = request.form.get("day")
-        year = request.form.get("year")
-        hour = request.form.get("hour")
-        minute = request.form.get("minute")
-        rank = request.form.get("rank")
+        deadline = request.form.get("deadline")
+        importance = request.form.get("importance")
         notes = request.form.get("notes")
 
-        db.execute("INSERT INTO assignments (title, course, month, day, year, hour, minute, importance, notes, user_id) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        db.execute("INSERT INTO assignments (title, course, deadline, importance, notes, user_id) VALUES(?, ?, ?, ?, ?, ?)",
                         title,
                         course,
-                        month,
-                        day,
-                        year,
-                        hour,
-                        minute,
-                        rank,
+                        deadline,
+                        importance,
                         notes,
                         session["user_id"])
-
-        return render_template("list.html")
+        
+        return redirect("/list")
         
     else:
         return render_template("assignmentsform.html")
 
-@app.route("/eventsform")
+@app.route("/eventsform", methods=["GET", "POST"])
 @login_required
 def eventsform():
-    return render_template("eventsform.html")
+    if request.method == "POST":
+
+        title = request.form.get("title")
+        location = request.form.get("location")
+        start_date = request.form.get("start_date")
+        start_time = request.form.get("start_time")
+        end_date = request.form.get("end_date")
+        end_time = request.form.get("end_time")
+        importance = request.form.get("importance")
+        notes = request.form.get("notes")
+
+        db.execute("INSERT INTO events (title, location, start_date, start_time, end_date, end_time, importance, notes, user_id) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                        title,
+                        location,
+                        start_date,
+                        start_time,
+                        end_date,
+                        end_time,
+                        importance,
+                        notes,
+                        session["user_id"])
+        
+        return redirect("/list")
+    else:
+        return render_template("eventsform.html")
 
 @app.route("/urgent")
 @login_required
@@ -177,7 +193,7 @@ def list():
     """List view of assignments and events"""
     # Populates the list html table
     assignments = db.execute(
-        "SELECT title, course, importance, month, day, year, hour, minute, notes FROM assignments WHERE user_id = ? ORDER BY year DESC, month DESC, day DESC, hour DESC, minute DESC", session["user_id"])
+        "SELECT title, course, date(deadline) as date, CASE WHEN StrFTime('%H', deadline) % 12 = 0 THEN 12 ELSE StrFTime('%H', deadline) % 12 END || ':' || StrFTime('%M', deadline) || ' ' || CASE WHEN StrFTime('%H', deadline) > 12 THEN 'PM' ELSE 'AM' END `time`, importance, notes FROM assignments WHERE user_id = ? ORDER BY deadline ASC", session["user_id"])
     events = db.execute(
-        "SELECT title, month, day, year, hour, minute, importance, notes FROM assignments WHERE user_id = ? ORDER BY year DESC, month DESC, day DESC, hour DESC, minute DESC", session["user_id"])
+        "SELECT title, location, start_date, CASE WHEN StrFTime('%H', start_time) % 12 = 0 THEN 12 ELSE StrFTime('%H', start_time) % 12 END || ':' || StrFTime('%M', start_time) || ' ' || CASE WHEN StrFTime('%H', start_time) > 12 THEN 'PM' ELSE 'AM' END `start_time`, end_date, CASE WHEN StrFTime('%H', end_time) % 12 = 0 THEN 12 ELSE StrFTime('%H', end_time) % 12 END || ':' || StrFTime('%M', end_time) || ' ' || CASE WHEN StrFTime('%H', end_time) > 12 THEN 'PM' ELSE 'AM' END `end_time`, importance, notes FROM events WHERE user_id = ? ORDER BY start_date ASC, start_time ASC", session["user_id"])
     return render_template("list.html", assignments=assignments, events=events)

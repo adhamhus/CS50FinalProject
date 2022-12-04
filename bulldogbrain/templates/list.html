@@ -14,18 +14,18 @@
                 <tr>
                     <th>Assignment</th>
                     <th>Course</th>
-                    <th>Due Date</th>
+                    <th>Deadline</th>
                     <th>Importance</th>
                     <th>Notes</th>
                 </tr>
             </thead>
             <tbody>
                 <!-- TODO: Loop through the database entries to display them in this table -->
-                {% for assignment in assignments %}
+                {% for assignments in assignments %}
                 <tr>
                     <td>{{ assignments.title }}</td>
                     <td>{{ assignments.course }}</td>
-                    <td>{{ assignments.month }}/{{ assignments.day }}/{{ assignments.year }} @ {{ assignments.hour }}:{{ assignments.minute }}</td>
+                    <td>{{ assignments.date }} @ {{ assignments.time }}</td>
                     <td>{{ assignments.importance }}</td>
                     <td>{{ assignments.notes }}</td>
                 </tr>
@@ -39,8 +39,8 @@
             <thead>
                 <tr>
                     <th>Event</th>
-                    <th>Date</th>
-                    <th>Time</th>
+                    <th>Start</th>
+                    <th>End</th>
                     <th>Location</th>
                     <th>Importance</th>
                     <th>Notes</th>
@@ -48,11 +48,11 @@
             </thead>
             <tbody>
                 <!-- TODO: Loop through the database entries to display them in this table -->
-                {% for event in events %}
+                {% for events in events %}
                 <tr>
                     <td>{{ events.title }}</td>
-                    <td>{{ events.month }}/{{ events.day }}/{{ events.year }}</td>
-                    <td>{{ events.hour }}:{{ events.minute }}</td>
+                    <td>{{ events.start_date }} {{ events.start_time }}</td>
+                    <td>{{ events.end_date }} {{ events.end_time }}</td>
                     <td>{{ events.location }}</td>
                     <td>{{ events.importance }}</td>
                     <td>{{ events.notes }}</td>
