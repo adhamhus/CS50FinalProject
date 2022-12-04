@@ -76,3 +76,8 @@ SELECT strftime('%H', start_time) FROM events WHERE title ='swim practice';
 --   ADD new_column_name column_definition;
  ALTER TABLE 'assignments'
  ADD 'completed' INTEGER NOT NULL DEFAULT '0' CHECK (completed IN (0, 1));
+
+-- to update the desired assignment as completed = true
+ UPDATE assignments
+ SET completed = '1'
+ WHERE id = ?;
