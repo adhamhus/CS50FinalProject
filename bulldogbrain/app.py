@@ -202,10 +202,10 @@ def list():
             "SELECT event_id, title, location, start_date, CASE WHEN StrFTime('%H', start_time) % 12 = 0 THEN 12 ELSE StrFTime('%H', start_time) % 12 END || ':' || StrFTime('%M', start_time) || ' ' || CASE WHEN CAST(StrFTime('%H', start_time) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'start_time', end_date, CASE WHEN StrFTime('%H', end_time) % 12 = 0 THEN 12 ELSE StrFTime('%H', end_time) % 12 END || ':' || StrFTime('%M', end_time) || ' ' || CASE WHEN CAST(StrFTime('%H', end_time) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'end_time', importance, notes FROM events WHERE user_id = ? ORDER BY start_date ASC, start_time ASC", session["user_id"])
         return render_template("list.html", assignments=assignments, events=events)
 
-@app.route("/cross_out_assignment", methods=["GET", "POST"])
+# @app.route("/cross_out_assignment", methods=["GET", "POST"])
 
-def cross_out_assignment():
-    cross_out_assignments = db.execute("UPDATE assignments SET completed = '1' WHERE id = ?", assignment_id)
+# def cross_out_assignment():
+#     cross_out_assignments = db.execute("UPDATE assignments SET completed = '1' WHERE id = ?", assignment_id)
 
 @app.route("/archive", methods=["GET", "POST"])
 def archive():
