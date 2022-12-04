@@ -31,7 +31,7 @@ def after_request(response):
 @app.route("/")
 @login_required
 def home():
-    return render_template("login.html")
+    return redirect("/list")
 
 @app.route("/assignmentsform", methods=["GET", "POST"])
 @login_required
