@@ -12,6 +12,7 @@
         <table class="table table-striped">
             <thead>
                 <tr>
+                    <th>Completed<th>
                     <th>Assignment</th>
                     <th>Course</th>
                     <th>Deadline</th>
@@ -23,6 +24,14 @@
                 <!-- TODO: Loop through the database entries to display them in this table -->
                 {% for assignments in assignments %}
                 <tr>
+                    <td>
+                        <!-- <input type="radio" id="completed" name="completed" value="1">
+                        <label for="yes">YES</label><br>
+                        <input type="radio" id="completed" name="completed" value="0">
+                        <label for="no">NO</label><br> -->
+                        <input type="checkbox" id="completed" name="completed" value="1">
+                        <label for="completed"></label><br>
+                    </td>
                     <td>{{ assignments.title }}</td>
                     <td>{{ assignments.course }}</td>
                     <td>{{ assignments.date }} @ {{ assignments.time }}</td>
@@ -38,6 +47,7 @@
         <table class="table table-striped">
             <thead>
                 <tr>
+                    <th>Completed</th>
                     <th>Event</th>
                     <th>Start</th>
                     <th>End</th>
@@ -50,12 +60,20 @@
                 <!-- TODO: Loop through the database entries to display them in this table -->
                 {% for events in events %}
                 <tr>
+                    <td>
+                        <input type="radio" id="completed" name="completed" value="1">
+                        <label for="yes">YES</label><br>
+                        <input type="radio" id="completed" name="completed" value="0">
+                        <label for="no">NO</label><br>
+                        <!-- <input type="checkbox" id="completed" name="completed" value="">
+                        <label for="completed"></label><br> -->
+                    </td>
                     <td>{{ events.title }}</td>
                     <td>{{ events.start_date }} {{ events.start_time }}</td>
                     <td>{{ events.end_date }} {{ events.end_time }}</td>
                     <td>{{ events.location }}</td>
                     <td>{{ events.importance }}</td>
-                    <td>{{ events.notes }}</td>
+                    <td>{{ events.notes }}</td>    
                 </tr>
                 {% endfor %}
             </tbody>

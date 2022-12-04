@@ -68,3 +68,11 @@ CASE WHEN StrFTime('%H', end_time) % 12 = 0 THEN 12 ELSE StrFTime('%H', end_time
 SELECT strftime('%H', deadline) FROM assignments WHERE title ='eqrew';
 SELECT strftime('%H', start_time) FROM events WHERE title ='swim practice';
 
+-- for completed column in assignments
+
+-- 0 = "FALSE" & 1 = "TRUE"
+
+-- ALTER TABLE table_name
+--   ADD new_column_name column_definition;
+ ALTER TABLE 'assignments'
+ ADD 'completed' INTEGER NOT NULL DEFAULT '0' CHECK (completed IN (0, 1));
