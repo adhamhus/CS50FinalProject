@@ -120,6 +120,8 @@
 /* this is to put events and assignments table side by side */
 * {
   box-sizing: border-box;
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
 }
 
 .row {
@@ -197,4 +199,8 @@ html, body, {
 .loginbox {
   border: 2px solid #0000FF;
   border-radius: 4px;
+}
+
+.topRowLoggedIn {
+  font-size: 16px;
 }

@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Add Assignment
+{% endblock %}
+
+{% block main %}
+    <form action="/assignmentsform" method="post">
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="name" name="name" placeholder="Name of Class" type="text" required>
+        </div>
+        <div class="mb-3">
+            <input type="radio" id="importance" name="importance" value="YES">
+            <label for="yes">YES</label><br>
+            <input type="radio" id="importance" name="importance" value="NO">
+            <label for="no">NO</label><br>
+        </div>
+        <button class="btn btn-primary" type="submit">Add Class</button>
+    </form>
+{% endblock %}
