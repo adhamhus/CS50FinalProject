@@ -5,16 +5,20 @@
 {% endblock %}
 
 {% block main %}
-
-<form action="/list" method="post">
-    <input autocomplete="off" class="form-control mx-auto w-auto" id="id" name="id" placeholder="#id" type="int" required>
-    <input type="radio" id="assignment" name="type" value="assignment">
-        <label for="type">Assignment</label>
-    <input type="radio" id="type" name="type" value="event">
-    <label for="type">Event</label>
-    <button class="btn btn-primary" type="submit">Completed!</button>
-</form>
 <div>
+    <!-- <form action="/list" method="post">
+        
+        <p>Insert assignment or event # to remove or cross off:</p>
+        
+        <input autocomplete="off" class="form-control mx-auto w-auto" id="id" name="id" placeholder="#" type="int" required>
+        <input type="radio" id="assignment" name="type" value="assignment">
+        <label for="type">assignment</label>
+        <input type="radio" id="type" name="type" value="event">
+        <label for="type">event</label>
+        <button class="btn btn-primary" type="submit">Cross off</button>
+    </form> -->
+    <br>
+
     <!-- THIS WORKS TOO!!!
     <form action="/list" method="post">
         <p>Insert assignment or event # to remove or cross off:</p>
@@ -40,7 +44,8 @@
         <table style = "position:relative;top:-90px" class="table table-striped">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th></th>
+                    <!-- <th>#</th> -->
                     <th>Assignment</th>
                     <th>Course</th>
                     <th>Deadline</th>
@@ -51,8 +56,23 @@
             <tbody>
                 <!-- TODO: Loop through the database entries to display them in this table -->
                 {% for assignments in assignments %}
+
                 <tr>
-                    <td>{{ assignments.id }}</td>
+                    <td>
+                        <form id="completion" action="/list" method="post">
+                            <input autocomplete="off" type="checkbox" id="assignment_id" name="assignment_id" value="{{ assignments.id }}" onclick="submit()" required>
+                        </form>
+                        <!-- Source: https://www.quora.com/How-can-I-submit-two-forms-with-one-button -->
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+                        <script> 
+                        function submit() {
+                         $(document).ready(function () { 
+                           $("#completion").submit(); 
+                         });
+                         }
+                        </script>
+                    </td>
+                    <!-- <td>{{ assignments.id }}</td> -->
                     <td>{{ assignments.title }}</td>
                     <td>{{ assignments.course }}</td>
                     <td>{{ assignments.date }} @ {{ assignments.time }}</td>
@@ -68,7 +88,8 @@
         <table style = "position:relative;top:-90px" class="table table-striped">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th></th>
+                    <!-- <th>#</th> -->
                     <th>Event</th>
                     <th>Start</th>
                     <th>End</th>
@@ -81,7 +102,20 @@
                 <!-- TODO: Loop through the database entries to display them in this table -->
                 {% for events in events %}
                 <tr>
-                    <td>{{ events.event_id }}</td>
+                    <td>
+                        <form id="completion" action="/list" method="post">
+                            <input autocomplete="off" type="checkbox" id="event_id" name="event_id" value="{{ events.event_id }}" onclick="submit()" required>
+                        </form>
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+                        <script> 
+                        function submit() {
+                         $(document).ready(function () { 
+                           $("#completion").submit(); 
+                         });
+                         }
+                        </script>
+                    </td>
+                    <!-- <td>{{ events.event_id }}</td> -->
                     <td>{{ events.title }}</td>
                     <td>{{ events.start_date }} @ {{ events.start_time }}</td>
                     <td>{{ events.end_date }} @ {{ events.end_time }}</td>
