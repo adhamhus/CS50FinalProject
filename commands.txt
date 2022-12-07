@@ -2,6 +2,7 @@ GIT COMMANDS TO SAVE (DON'T FORGET)
 1. git add -A
 2. git commit -m "(name of changes)"
 3. git push
+4. git pull
 
 COMMAND TO RUN WHILE AUTOUPDATE FLASK WEBSITE
 1. flask --app app.py --debug run

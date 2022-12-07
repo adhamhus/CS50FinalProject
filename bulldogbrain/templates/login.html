@@ -1,21 +1,30 @@
-{% extends "layout.html" %}
+{% extends "layout.html" %} 
 
 {% block title %}
     Log In
 {% endblock %}
 
 {% block main %}
+<head>
+    <style>
+    body  {
+        background-image: url("https://forhumanity.yale.edu/sites/default/files/styles/post_hero/public/2021/images/Yale_Yburst_hero.jpg?h=c33ae526&itok=VW5aTcP6");
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+    </style>
+</head>
     <form action="/login" method="post">
         <div class="mb-3">
-            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="username" name="username" placeholder="Username" type="text">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto loginbox" id="username" name="username" placeholder="Username" type="text">
         </div>
         <div class="mb-3">
-            <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="Password" type="password">
+            <input class="form-control mx-auto w-auto loginbox" id="password" name="password" placeholder="Password" type="password">
         </div>
         <button class="btn btn-primary button button1" type="submit">Log In</button>
     </form>
-    <div>
-        
-    </div>
-    <img src="https://d3mojdi32uv7q.cloudfront.net/images/2021/8/18/HD19yalebowl.jpg" alt="Handsome Dan as a Puppy" style:"width:128px;height:128px;">
+    <br>
+    <img src="https://news.yale.edu/sites/default/files/styles/featured_media/public/2021_03_03_10-58-46_banners.jpg?itok=MxBNox8V&c=07307e7d6a991172b9f808eb83b18804" style="width:511px;height:297px;"></img>
 {% endblock %}

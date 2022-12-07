@@ -26,23 +26,25 @@
 
     <body>
 
-      <nav class="bg-light border navbar navbar-expand-md navbar-light justify-content-center">
+      <nav class="transparent navbar navbar-expand-md justify-content-center">
           <div class="collapse navbar-collapse" id="navbar">
               {% if session["user_id"] %}
                   <ul class="navbar-nav me-auto mt-2">
-                    <li class="nav-item"><a class="nav-link" href="/urgent">Bulldogbrain</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/urgent">BulldogBrain</a></li>
                     <li class="nav-item"><a class="nav-link" href="/list">List</a></li>  
                     <li class="nav-item"><a class="nav-link" href="/archive">Archive</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/list_test">List_test</a></li>
                   </ul>
                   <ul class="navbar-nav ms-auto mt-2">
                       <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
                   </ul>
                   
               {% else %}
-                  <ul class="navbar-nav ms-auto mt-2">
-                    <li class="nav-item"><a class="nav-link" href="/homepage">Bulldogbrain</a></li>  
+                  <h1 class="textcenter">Bulldog Brain</h1>
+                  <ul  class="navbar-nav ms-auto mt-2">
+                    <li class="nav-item"><a class="nav-link" href="/homepage">BulldogBrain</a></li>  
                     <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
-                      <li class="nav-item"><a class="nav-link" href="/login">Log In</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/login">Log In</a></li>
                   </ul>
               {% endif %}
           </div>
@@ -58,6 +60,7 @@
             <a href="/eventsform">Event</a>
           </div>
         </div>
+
         {% endif %}
     </div>
 

@@ -48,7 +48,7 @@
 
 /* Set a style for the submit/login button */
 .form-container .btn {
-  background-color: #04AA6D;
+  background-color: #0000FF;
   color: white;
   padding: 16px 20px;
   border: none;
@@ -70,7 +70,7 @@
 
 /* Dropdown Button */
 .dropbtn {
-  background-color: #04AA6D;
+  background-color: #0000FF;
   color: white;
   padding: 16px;
   font-size: 16px;
@@ -108,7 +108,7 @@
 .dropdown:hover .dropdown-content {display: block;}
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
+.dropdown:hover .dropbtn {background-color: #6a6868a7;}
 
 /* this is to put events and assignments table side by side */
 * {
@@ -166,7 +166,7 @@ html, body, {
   background-color: #0000FF;
   border: none;
   color: white;
-  padding: 16px 32px;
+  padding: 10px 18px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -185,4 +185,19 @@ html, body, {
 .button1:hover {
   background-color: #0000FF;
   color: white;
+}
+
+.assignmentDeletion {
+  text-align: center;
+  display: inline-block;
+  text-align: left;
+}
+
+.loginbox {
+  border: 2px solid #0000FF;
+  border-radius: 4px;
+}
+
+.textcenter {
+  text-align: center;
 }

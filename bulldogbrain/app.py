@@ -86,10 +86,28 @@ def eventsform():
     else:
         return render_template("eventsform.html")
 
-@app.route("/urgent")
+@app.route("/urgent", methods=["GET", "POST"])
 @login_required
-def urgent():
-    return render_template("urgent.html")
+def dayChronoligical():
+        
+    """List view of assignments and events"""
+    assignments = db.execute(
+            "SELECT id, title, course, date(deadline) as date, CASE WHEN StrFTime('%H', deadline) % 12 = 0 THEN 12 ELSE StrFTime('%H', deadline) % 12 END || ':' || StrFTime('%M', deadline) || ' ' || CASE WHEN CAST(StrFTime('%H', deadline) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'time', importance, notes FROM assignments WHERE user_id = ? AND completed != 1 ORDER BY deadline ASC", session["user_id"])
+    events = db.execute(
+            "SELECT event_id, title, location, start_date, CASE WHEN StrFTime('%H', start_time) % 12 = 0 THEN 12 ELSE StrFTime('%H', start_time) % 12 END || ':' || StrFTime('%M', start_time) || ' ' || CASE WHEN CAST(StrFTime('%H', start_time) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'start_time', end_date, CASE WHEN StrFTime('%H', end_time) % 12 = 0 THEN 12 ELSE StrFTime('%H', end_time) % 12 END || ':' || StrFTime('%M', end_time) || ' ' || CASE WHEN CAST(StrFTime('%H', end_time) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'end_time', importance, notes FROM events WHERE user_id = ? AND completed != 1 ORDER BY start_date ASC, start_time ASC", session["user_id"])
+    
+    if request.method == "POST":
+        type = request.form.get("type")
+        id = request.form.get("id")
+
+        if type == "assignment":
+            db.execute("UPDATE assignments SET completed = '1' WHERE id = ?", id)
+        elif type == "event":
+            db.execute("UPDATE events SET completed = '1' WHERE event_id = ?", id)
+
+        return redirect("/list")
+    else:
+        return render_template("/dayChronoligical.html", assignments=assignments, events=events)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -231,3 +249,27 @@ def archive():
         return redirect("/list")
     else:
         return render_template("archive.html", assignments=assignments, events=events)
+
+@app.route("/list_test", methods=["GET", "POST"])
+def list_test():
+    
+    """List view of assignments and events"""
+    assignments = db.execute(
+            "SELECT id, title, course, date(deadline) as date, CASE WHEN StrFTime('%H', deadline) % 12 = 0 THEN 12 ELSE StrFTime('%H', deadline) % 12 END || ':' || StrFTime('%M', deadline) || ' ' || CASE WHEN CAST(StrFTime('%H', deadline) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'time', importance, notes FROM assignments WHERE user_id = ? AND completed != 1 ORDER BY deadline ASC", session["user_id"])
+    events = db.execute(
+            "SELECT event_id, title, location, start_date, CASE WHEN StrFTime('%H', start_time) % 12 = 0 THEN 12 ELSE StrFTime('%H', start_time) % 12 END || ':' || StrFTime('%M', start_time) || ' ' || CASE WHEN CAST(StrFTime('%H', start_time) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'start_time', end_date, CASE WHEN StrFTime('%H', end_time) % 12 = 0 THEN 12 ELSE StrFTime('%H', end_time) % 12 END || ':' || StrFTime('%M', end_time) || ' ' || CASE WHEN CAST(StrFTime('%H', end_time) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'end_time', importance, notes FROM events WHERE user_id = ? AND completed != 1 ORDER BY start_date ASC, start_time ASC", session["user_id"])
+    
+    if request.method == "POST":
+        # assignment = request.form.get("assignment")
+        # print(assignment)
+        # id = request.form.get("id")
+
+        # if type == "assignment":
+        #     db.execute("UPDATE assignments SET completed = '1' WHERE id = ?", id)
+        # elif type == "event":
+        #     db.execute("UPDATE events SET completed = '1' WHERE event_id = ?", id)
+
+        # return redirect("/list_test")
+        return render_template("list_test.html", assignments=assignments, events=events)
+    else:
+        return render_template("list_test.html", assignments=assignments, events=events)

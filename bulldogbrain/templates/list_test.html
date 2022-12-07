@@ -5,16 +5,20 @@
 {% endblock %}
 
 {% block main %}
-
-<form action="/list" method="post">
-    <input autocomplete="off" class="form-control mx-auto w-auto" id="id" name="id" placeholder="#id" type="int" required>
-    <input type="radio" id="assignment" name="type" value="assignment">
-        <label for="type">Assignment</label>
-    <input type="radio" id="type" name="type" value="event">
-    <label for="type">Event</label>
-    <button class="btn btn-primary" type="submit">Completed!</button>
-</form>
 <div>
+    <!-- <form action="/list" method="post">
+        
+        <p>Insert assignment or event # to remove or cross off:</p>
+        
+        <input autocomplete="off" class="form-control mx-auto w-auto" id="id" name="id" placeholder="#" type="int" required>
+        <input type="radio" id="assignment" name="type" value="assignment">
+        <label for="type">assignment</label>
+        <input type="radio" id="type" name="type" value="event">
+        <label for="type">event</label>
+        <button class="btn btn-primary" type="submit">Cross off</button>
+    </form> -->
+    <br>
+
     <!-- THIS WORKS TOO!!!
     <form action="/list" method="post">
         <p>Insert assignment or event # to remove or cross off:</p>
@@ -33,13 +37,17 @@
             <button class="btn btn-primary" type="submit">Delete Assignment</button>
         </form>
     </div> -->
+    <form action="/list_test" method="post"></form>
+        <button class="btn btn-primary" type="submit">Update</button>
+    </form>
 </div>
 <div class="row">
 <div class="column">
-    <h2 style = "position:relative;top:-90px">Assignments</h2>
+    <h2 style = "position:relative;top:-90px">Assignments poop</h2>
         <table style = "position:relative;top:-90px" class="table table-striped">
             <thead>
                 <tr>
+                    <th>Done</th>
                     <th>#</th>
                     <th>Assignment</th>
                     <th>Course</th>
@@ -51,7 +59,14 @@
             <tbody>
                 <!-- TODO: Loop through the database entries to display them in this table -->
                 {% for assignments in assignments %}
+
                 <tr>
+                    <td>
+                        <form action="/list_test" method="post">
+                            <input autocomplete="off" type="checkbox" id="assignment" name="assignement" value="assginment" required>
+                            <button class="btn btn-primary" type="submit">Update</button>
+                        </form>
+                    </td>
                     <td>{{ assignments.id }}</td>
                     <td>{{ assignments.title }}</td>
                     <td>{{ assignments.course }}</td>
