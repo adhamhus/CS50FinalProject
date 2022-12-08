@@ -225,7 +225,6 @@ def archive():
     
     if request.method == "POST":
         assignment_id = request.form.get("assignment_id")
-        print(assignment_id)
         db.execute("UPDATE assignments SET completed = '0' WHERE id = ?", assignment_id)
         event_id = request.form.get("event_id")
         db.execute("UPDATE events SET completed = '0' WHERE event_id = ?", event_id)
