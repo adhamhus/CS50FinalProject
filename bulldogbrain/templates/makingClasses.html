@@ -6,15 +6,36 @@
 
 {% block main %}
     <form action="/assignmentsform" method="post">
+        <strong style="font-size:55px;position:relative;top:-90px">ADD COURSE</strong>
+        <br>
         <div class="mb-3">
-            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="name" name="name" placeholder="Name of Class" type="text" required>
+            <input style="height:60px;width:300px;font-size:25px;" autocomplete="off" autofocus class="form-control mx-auto w-auto" id="title" name="title" placeholder="Name of Class" type="text" required>
         </div>
-        <div class="mb-3">
-            <input type="radio" id="importance" name="importance" value="YES">
-            <label for="yes">YES</label><br>
-            <input type="radio" id="importance" name="importance" value="NO">
-            <label for="no">NO</label><br>
+        <br>
+        <div style = "transform: scale(2)" class="mb-3">
+            <span class="dot1"></span>
+            <span class="dot2"></span>
+            <span class="dot3"></span>
+            <span class="dot4"></span>
+            <span class="dot5"></span>
+            <span class="dot6"></span>
+            <br>
+            <input class="courseColor1" type="radio" id="color" name="color" value="red" required>
+            <label for="red"></label>
+            <input class="courseColor2" type="radio" id="color" name="color" value="blue">
+            <label for="blue"></label>
+            <input class="courseColor3" type="radio" id="color" name="color" value="green">
+            <label for="green"></label>
+            <input class="courseColor4" type="radio" id="color" name="color" value="purple">
+            <label for="purple"></label>
+            <input class="courseColor5" type="radio" id="color" name="color" value="lightcoral">
+            <label for="lightcoral"></label>
+            <input class="courseColor6" type="radio" id="color" name="color" value="orange">
+            <label for="orange"></label>
+            <br>
+            <br>
         </div>
-        <button class="btn btn-primary" type="submit">Add Class</button>
+        <br>
+        <button style="height:80px;width:280px" class="btn btn-primary" type="submit">Add Class</button>
     </form>
 {% endblock %}

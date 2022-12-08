@@ -204,3 +204,115 @@ html, body, {
 .topRowLoggedIn {
   font-size: 16px;
 }
+
+.courseColor1 {
+  accent-color: red;
+  position: relative;
+  left: -2px;
+}
+
+.courseColor2 {
+  accent-color: blue;
+  position: relative;
+  left: -2px;
+}
+
+.courseColor3 {
+  accent-color: green;
+  position: relative;
+  left: -2px;
+}
+
+.courseColor4 {
+  accent-color: purple;
+  position: relative;
+  left: -2px;
+}
+
+.courseColor5 {
+  accent-color: lightcoral;
+  position: relative;
+  left: -2px;
+}
+
+.courseColor6 {
+  accent-color: orange;
+  position: relative;
+  left: -2px;
+}
+
+.center {
+  text-align: center;
+}
+
+.title {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 90px;
+  color: white;
+}
+
+.dot1 {
+  height: 15px;
+  width: 15px;
+  background-color: red;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  top: 25px;
+  left: -5.5px
+}
+
+.dot2 {
+  height: 15px;
+  width: 15px;
+  background-color: blue;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  top: 25px;
+  left: -3.4px
+}
+
+.dot3 {
+  height: 15px;
+  width: 15px;
+  background-color: green;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  top: 25px;
+  left: -1.1px
+}
+
+.dot4 {
+  height: 15px;
+  width: 15px;
+  background-color: purple;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  top: 25px;
+  left: 1.3px
+}
+
+.dot5 {
+  height: 15px;
+  width: 15px;
+  background-color: lightcoral;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  top: 25px;
+  left: 3px
+}
+
+.dot6 {
+  height: 15px;
+  width: 15px;
+  background-color: orange;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  top: 25px;
+  left: 5.5px
+}

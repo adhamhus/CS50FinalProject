@@ -38,6 +38,14 @@ def home():
 def makingClasses():
     if request.method == "POST":
         
+        title = request.form.get("title")
+        color = request.form.get("color")
+
+        db.execute("INSERT INTO courses (title, color, user_id) VALUES(?, ?, ?)",
+                        title,
+                        color,
+                        session["user_id"])
+
         return redirect("/list.html")
         
     else:
