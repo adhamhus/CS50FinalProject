@@ -1,0 +1,13 @@
+TO MAKE PRETTY
+1. Assignments form
+2. Events form
+3. Register form
+
+NEEDED ADDITIONS
+1. Make a courses table in sql
+2. Dropdown menu in assignments form to pick class from the courses table
+3. Make a day view that is ordered by importance 
+4**. Something fancy, by Wini's request. Such as adding a notification like "Congrats!" somewhere when they complete a task.
+
+POSSIBLE ADDITIONS
+1. List user's courses on the right of the courses table for more practicality
