@@ -8,29 +8,29 @@
 <style>
     body  {
       background-image: url("https://cdn.wallpapersafari.com/7/71/FRDyLv.jpg");
-      background-size: 50%;
-      background-position-y: -10px;
+      background-size: 100%;
+      background-position-y: 0px;
     }
 </style>
 <strong style = "color:white; position: relative; top: -110px; font-size: 45px" >Today</strong>
     <div class="row">
     <div class="column">
         <strong style = "color:white; position:relative; top:-130px; font-size: 40px">Assignments</strong>
-            <table style = "position:relative; top:-130px" class="table table-striped">
+            <table style = "position:relative; top:-130px;" class="table table-striped">
                 <thead>
-                    <tr>
-                        <th style="color:white;"><img src="static/images/checkMark.png" alt="Checkmark" width="20" height="20"></th>
-                        <th style="color:white;">Assignment</th>
-                        <th style="color:white;">Course</th>
-                        <th style="color:white;">Deadline</th>
-                        <th style="color:white;">Important</th>
-                        <th style="color:white;">Notes</th>
+                    <tr style="color:white;">
+                        <th><img src="static/images/checkMark.png" alt="Checkmark" width="20" height="20"></th>
+                        <th>Assignment</th>
+                        <th>Course</th>
+                        <th>Deadline</th>
+                        <th>Important</th>
+                        <th>Notes</th>
                     </tr>
                 </thead>
                 <tbody>
                     <!-- TODO: Loop through the database entries to display them in this table -->
                     {% for assignments in assignments %}
-                    <tr>
+                    <tr style="color:white;  background-color:rgba(137, 133, 133, 0.55);">
                         <td>
                             <form id="completion" action="/urgent" method="post">
                                 <input autocomplete="off" type="checkbox" id="assignment_id" name="assignment_id" value="{{ assignments.id }}" onclick="submit()" required>
@@ -54,21 +54,22 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <img src="https://printer.yale.edu/sites/default/files/files/iPhone18.jpg" style="width:80px; height:144px; position:relative; top:-380px;" class="imagecenter"></img>
+
+            <!-- <img src="https://printer.yale.edu/sites/default/files/files/iPhone18.jpg" style="width:80px; height:144px; position:relative; top:-380px;" class="imagecenter"></img> -->
         </div>
         
         <div class="column">
             <strong style = "color:white; position:relative; top:-130px; font-size: 40px">Events</strong>
             <table style = "position:relative; top:-130px" class="table table-striped">
                 <thead>
-                    <tr>
-                        <th style="color:white;"><img src="static/images/checkMark.png" alt="Checkmark" width="20" height="20"></th>
-                        <th style="color:white;">Event</th>
-                        <th style="color:white;">Start</th>
-                        <th style="color:white;">End</th>
-                        <th style="color:white;">Location</th>
-                        <th style="color:white;">Important</th>
-                        <th style="color:white;">Notes</th>
+                    <tr style="color:white;">
+                        <th><img src="static/images/checkMark.png" alt="Checkmark" width="20" height="20"></th>
+                        <th>Event</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Location</th>
+                        <th>Important</th>
+                        <th>Notes</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -87,7 +88,7 @@
                              });
                              }
                             </script>
-                        </td>
+                        </td style="color:white;">
                         <td>{{ events.title }}</td>
                         <td>{{ events.start_date }} @ {{ events.start_time }}</td>
                         <td>{{ events.end_date }} @ {{ events.end_time }}</td>
@@ -98,7 +99,7 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <img src="https://printer.yale.edu/sites/default/files/files/iPhone18.jpg" style="width:80px; height:144px; position:relative; top:-380px;" class="imagecenter"></img>
+            <!-- <img src="https://printer.yale.edu/sites/default/files/files/iPhone18.jpg" style="width:80px; height:144px; position:relative; top:-380px;" class="imagecenter"></img> -->
         </div>
     </div>
 {% endblock %}

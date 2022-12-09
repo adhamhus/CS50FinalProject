@@ -12,17 +12,13 @@
 
         <strong>Course</strong>
         <div>
-        <select name="languages" id="languages">
+        <select name="course" id="course">
             {% for courseTitle in courseTitle %}
                 <option value="{{ courseTitle.title }}">{{ courseTitle.title }}</option>
             {% endfor %}
         </select>
         </div>
         <br>
-
-        <div class="mb-3">
-            <input autocomplete="off" class="form-control mx-auto w-auto" id="course" name="course" placeholder="Assignment course" type="text" required>
-        </div>
         <div>
             <strong>Deadline</strong >
             <input autocomplete="off" class="form-control mx-auto w-auto" id="deadline" name="deadline" type="datetime-local" required>

@@ -5,13 +5,20 @@
 {% endblock %}
 
 {% block main %}
-<strong style = "position: relative; top: -110px; font-size: 45px" >Archive</strong>
+<style>
+    body  {
+      background-image: url("https://cdn.wallpapersafari.com/7/71/FRDyLv.jpg");
+      background-size: 100%;
+      background-position-y: 0px;
+    }
+</style>
+<strong style = "position: relative; top: -110px; font-size: 45px; color:white;" >Archive</strong>
 <div class="row">
 <div class="column">
-    <strong style = "position:relative; top:-130px; font-size: 40px">Assignments</strong>
+    <strong style = "position:relative; top:-130px; font-size: 40px; color:white;">Assignments</strong>
             <table style = "position:relative; top:-130px" class="table table-striped">
             <thead>
-                <tr>
+                <tr style="color:white;">
                     <th><img src="static/images/checkMark.png" alt="Checkmark" width="20" height="20"></th>
                     <th>Assignment</th>
                     <th>Course</th>
@@ -22,7 +29,7 @@
             </thead>
             <tbody>
                 {% for assignments in assignments %}
-                <tr>
+                <tr style="color:white; background-color:rgba(137, 133, 133, 0.55);">
                     <td>
                         <form id="completion" action="/archive" method="post">
                             <input type="hidden" name="assignment_id" value="{{ assignments.id }}">
@@ -49,10 +56,10 @@
         </table>
     </div>
     <div class="column">
-        <strong style = "position:relative; top:-130px; font-size: 40px">Events</strong>
+        <strong style = "position:relative; top:-130px; font-size: 40px; color:white;">Events</strong>
             <table style = "position:relative; top:-130px" class="table table-striped">
             <thead>
-                <tr>
+                <tr style="color:white;">
                     <th><img src="static/images/checkMark.png" alt="Checkmark" width="20" height="20"></th>
                     <th>Event</th>
                     <th>Start</th>
@@ -65,7 +72,7 @@
             <tbody>
                 <!-- TODO: Loop through the database entries to display them in this table -->
                 {% for events in events %}
-                <tr>
+                <tr style="color:white; background-color:rgba(137, 133, 133, 0.55);">
                     <td>
                         <form id="completion" action="/archive" method="post">
                             <input type="hidden" name="event_id" value="{{ events.event_id }}">
