@@ -74,7 +74,7 @@
 .dropbtn {
   background-color: #0000FF;
   color: white;
-  padding: 12px 18px;
+  padding: 16px 22px;
   font-size: 16px;
   border: none;
   border-radius: 25px;
@@ -102,7 +102,7 @@
 
 /* Links inside the dropdown */
 .dropdown-content a {
-  color: black;
+  color: #0000FF;
   padding: 12px 18px;
   text-decoration: none;
   display: block;
@@ -243,6 +243,13 @@ html, body, {
 
 .center {
   text-align: center;
+}
+
+.imagecenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
 
 .title {

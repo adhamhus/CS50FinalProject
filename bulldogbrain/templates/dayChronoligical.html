@@ -5,19 +5,26 @@
 {% endblock %}
 
 {% block main %}
-<strong style = "position: relative; top: -110px; font-size: 45px" >Today</strong>
+<style>
+    body  {
+      background-image: url("https://cdn.wallpapersafari.com/7/71/FRDyLv.jpg");
+      background-size: 50%;
+      background-position-y: -10px;
+    }
+</style>
+<strong style = "color:white; position: relative; top: -110px; font-size: 45px" >Today</strong>
     <div class="row">
     <div class="column">
-        <strong style = "position:relative; top:-130px; font-size: 40px">Assignments</strong>
+        <strong style = "color:white; position:relative; top:-130px; font-size: 40px">Assignments</strong>
             <table style = "position:relative; top:-130px" class="table table-striped">
                 <thead>
                     <tr>
-                        <th><img src="static/images/checkMark.png" alt="Checkmark" width="20" height="20"></th>
-                        <th>Assignment</th>
-                        <th>Course</th>
-                        <th>Deadline</th>
-                        <th>Important</th>
-                        <th>Notes</th>
+                        <th style="color:white;"><img src="static/images/checkMark.png" alt="Checkmark" width="20" height="20"></th>
+                        <th style="color:white;">Assignment</th>
+                        <th style="color:white;">Course</th>
+                        <th style="color:white;">Deadline</th>
+                        <th style="color:white;">Important</th>
+                        <th style="color:white;">Notes</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,19 +54,21 @@
                     {% endfor %}
                 </tbody>
             </table>
+            <img src="https://printer.yale.edu/sites/default/files/files/iPhone18.jpg" style="width:80px; height:144px; position:relative; top:-380px;" class="imagecenter"></img>
         </div>
+        
         <div class="column">
-            <strong style = "position:relative; top:-130px; font-size: 40px">Events</strong>
+            <strong style = "color:white; position:relative; top:-130px; font-size: 40px">Events</strong>
             <table style = "position:relative; top:-130px" class="table table-striped">
                 <thead>
                     <tr>
-                        <th><img src="static/images/checkMark.png" alt="Checkmark" width="20" height="20"></th>
-                        <th>Event</th>
-                        <th>Start</th>
-                        <th>End</th>
-                        <th>Location</th>
-                        <th>Important</th>
-                        <th>Notes</th>
+                        <th style="color:white;"><img src="static/images/checkMark.png" alt="Checkmark" width="20" height="20"></th>
+                        <th style="color:white;">Event</th>
+                        <th style="color:white;">Start</th>
+                        <th style="color:white;">End</th>
+                        <th style="color:white;">Location</th>
+                        <th style="color:white;">Important</th>
+                        <th style="color:white;">Notes</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -89,6 +98,7 @@
                     {% endfor %}
                 </tbody>
             </table>
+            <img src="https://printer.yale.edu/sites/default/files/files/iPhone18.jpg" style="width:80px; height:144px; position:relative; top:-380px;" class="imagecenter"></img>
         </div>
     </div>
 {% endblock %}

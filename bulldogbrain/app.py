@@ -42,11 +42,15 @@ def makingClasses():
         color = request.form.get("color")
 
         db.execute("INSERT INTO courses (title, color, user_id) VALUES(?, ?, ?)",
-                        title,
-                        color,
-                        session["user_id"])
+            title,
+            color,
+            session["user_id"])
 
-        return redirect("/list.html")
+        print(title)
+        print(color)
+        print(session["user_id"])
+
+        return redirect("/list")
         
     else:
         return render_template("makingClasses.html")
@@ -54,6 +58,7 @@ def makingClasses():
 @app.route("/assignmentsform", methods=["GET", "POST"])
 @login_required
 def assignmentsform():
+    courseTitle = db.execute("SELECT title FROM courses WHERE user_id = ?", session["user_id"])
     if request.method == "POST":
 
         title = request.form.get("title")
@@ -73,7 +78,7 @@ def assignmentsform():
         return redirect("/list")
         
     else:
-        return render_template("assignmentsform.html")
+        return render_template("assignmentsform.html", courseTitle=courseTitle)
 
 @app.route("/eventsform", methods=["GET", "POST"])
 @login_required

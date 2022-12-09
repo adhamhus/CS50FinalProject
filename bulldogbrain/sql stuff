@@ -25,6 +25,14 @@ CREATE TABLE 'events'(
     FOREIGN KEY (user_id)
     REFERENCES users (id));
 
+CREATE TABLE 'courses'(
+    'course_id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    'title' TEXT,
+    'color' TEXT,
+    'user_id' INTEGER,
+    FOREIGN KEY (user_id)
+    REFERENCES users (id));
+
 -- FOR CONVERTING TO 12-HOUR CLOCK
 --from https://stackoverflow.com/questions/535855/can-you-format-24-hour-time-string-into-12-hour-time-string-with-am-pm
 
