@@ -5,6 +5,13 @@
 {% endblock %}
 
 {% block main %}
+<style>
+    body  {
+        background-image: url("/static/images/backgroundBDBrain.jpeg");
+      background-size: 100%;
+      background-position-y: 0px;
+    }
+</style>
 <form action="/eventsform" method="post">
     <div class="mb-3">
         <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="title" name="title" placeholder="Event Name" type="text" required>

@@ -5,6 +5,24 @@
 {% endblock %}
 
 {% block main %}
+    <style>
+        body  {
+        /* background-image: url("/static/images/backgroundBDBrain.jpeg");
+        background-size: 100%;
+        background-position-y: 0px; */
+        background: url("/static/images/greyBox.jpeg") center no-repeat,
+                    url("/static/images/backgroundBDBrain.jpeg") left top repeat;
+        size: 0%, 0%;
+        /* padding: 15px; */
+        }
+    </style>
+    <!-- <style>
+        body  {
+        background-image: url("/static/images/greyBox.jpeg");
+        background-size: 50%;
+        background-position-y: 0px;
+        }
+    </style> -->
     <form action="/assignmentsform" method="post">
         <div class="mb-3">
             <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="title" name="title" placeholder="Name of Assignment" type="text" required>

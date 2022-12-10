@@ -6,6 +6,7 @@ TO MAKE PRETTY
 NEEDED ADDITIONS
 1. Make a day view that is ordered by importance 
 2***. Something fancy, by Wini's request. Such as adding a notification like "Congrats!" somewhere when they complete a task.
+3*********. FIX DAY VIEW 
 
 POSSIBLE ADDITIONS
 1. List user's courses on the right of the courses table for more practicality
