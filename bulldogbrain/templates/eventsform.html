@@ -7,12 +7,14 @@
 {% block main %}
 <style>
     body  {
-        background-image: url("/static/images/backgroundBDBrain.jpeg");
-      background-size: 100%;
-      background-position-y: 0px;
+      background: url("static/images/yalebackground.jpg") no-repeat center center fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
     }
 </style>
-<form  style="color:white" action="/eventsform" method="post">
+<form style="color:white; position: relative; bottom: 20px" action="/eventsform" method="post">
     <div class="mb-3">
         <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="title" name="title" placeholder="Event Name" type="text" required>
     </div>
@@ -25,11 +27,11 @@
         <label for="yes">YES</label><br>
         <input type="radio" id="importance" name="importance" value="NO">
         <label for="no">NO</label><br>
-    </div>
+    <div>
     <div>
         <label>Start Date:</label>
         <input autocomplete="off" class="form-control mx-auto w-auto" id="start_date" name="start_date" type="date" required>
-        <label>Start Time: (optional)</label>
+        <label style="position:relative; left:20px" >Start Time: (optional)</label>
         <input autocomplete="off" class="form-control mx-auto w-auto" id="start_time" name="start_time" type="time">
     </div>
     <div>

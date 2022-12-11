@@ -5,21 +5,23 @@
 {% endblock %}
 
 {% block main %}
-    <style>
-        body  {
-        background-image: url("/static/images/backgroundBDBrain.jpeg");
-        background-size: 100%;
-        background-position-y: 0px;
-        }
-    </style>
+<style>
+    body  {
+      background: url("static/images/yalebackground.jpg") no-repeat center center fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+    }
+</style>
     <form action="/makingClasses" method="post">
-        <strong style="font-size:55px;position:relative;top:-40px; color:white">ADD COURSE</strong>
-        <br>
+        <!-- <strong style="font-size:55px;position:relative;top:-40px; color:white">ADD COURSE</strong>
+        <br> -->
         <div class="mb-3">
-            <input style="height:60px;width:300px;font-size:25px;" autocomplete="off" autofocus class="form-control mx-auto w-auto" id="title" name="title" placeholder="Name of Class" type="text" required>
+            <input style="height:60px;width:300px;font-size:25px;" autocomplete="off" autofocus class="form-control mx-auto w-auto" id="title" name="title" placeholder="Course Name" type="text" required>
         </div>
         <br>
-        <div class="mb-3">
+        <!-- <div class="mb-3">
             <span style = "transform: scale(2)" class="dot1"></span>
             <span style = "transform: scale(2)" class="dot2"></span>
             <span style = "transform: scale(2)" class="dot3"></span>
@@ -41,7 +43,7 @@
             <label for="orange"></label>
             <br>
             <br>
-        </div>
+        </div> -->
         <br>
         <button style="height:80px;width:280px" class="btn btn-primary" type="submit">Add Class</button>
     </form>

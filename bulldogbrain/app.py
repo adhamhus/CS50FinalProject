@@ -1,5 +1,5 @@
 import os
-#test
+import datetime
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
@@ -27,46 +27,53 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
-
+# Sets the homepage of the website to the tasks displayed in the urgent view
 @app.route("/")
 @login_required
 def home():
     return redirect("/urgent")
 
+# Form for users to add classes
 @app.route("/makingClasses", methods=["GET", "POST"])
 @login_required
 def makingClasses():
+    # if statement to check for a submission
     if request.method == "POST":
-        
+       
+        # sets the value of title to the inputted course title
         title = request.form.get("title")
-        color = request.form.get("color")
 
-        db.execute("INSERT INTO courses (title, color, user_id) VALUES(?, ?, ?)",
+        # SQL syntax that inserts the title of a users course into the courses database
+        db.execute("INSERT INTO courses (title, user_id) VALUES(?, ?)",
             title,
-            color,
             session["user_id"])
 
-        print(title)
-        print(color)
-        print(session["user_id"])
-
+        # returns user to list page
         return redirect("/list")
         
     else:
+        # returns the original page if no submission was made
         return render_template("makingClasses.html")
 
+# Form for users to add assignments
 @app.route("/assignmentsform", methods=["GET", "POST"])
 @login_required
 def assignmentsform():
+    
+    # sets the value of courseTitle to one of the users courses from a dropdown list
     courseTitle = db.execute("SELECT title FROM courses WHERE user_id = ?", session["user_id"])
+    
+    # if statement to check for a submission
     if request.method == "POST":
 
+        # sets values of each variable to that of the form input equivilant
         title = request.form.get("title")
         course = request.form.get("course")
         deadline = request.form.get("deadline")
         importance = request.form.get("importance")
         notes = request.form.get("notes")
 
+        # populates the assignments table with the info inputted by the user
         db.execute("INSERT INTO assignments (title, course, deadline, importance, notes, user_id) VALUES(?, ?, ?, ?, ?, ?)",
                         title,
                         course,
@@ -75,16 +82,21 @@ def assignmentsform():
                         notes,
                         session["user_id"])
         
+        # returns user to list page
         return redirect("/list")
         
     else:
+        # returns the original page if no submission was made
         return render_template("assignmentsform.html", courseTitle=courseTitle)
 
 @app.route("/eventsform", methods=["GET", "POST"])
 @login_required
 def eventsform():
+    
+    # if statement to check for a submission
     if request.method == "POST":
 
+        # sets values of each variable to that of the form input equivilant
         title = request.form.get("title")
         location = request.form.get("location")
         start_date = request.form.get("start_date")
@@ -94,6 +106,7 @@ def eventsform():
         importance = request.form.get("importance")
         notes = request.form.get("notes")
 
+        # populates the events table with the info inputted by the user
         db.execute("INSERT INTO events (title, location, start_date, start_time, end_date, end_time, importance, notes, user_id) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)",
                         title,
                         location,
@@ -105,21 +118,28 @@ def eventsform():
                         notes,
                         session["user_id"])
         
+        # returns user to list page
         return redirect("/list")
     else:
+        # returns the original page if no submission was made
         return render_template("eventsform.html")
 
 @app.route("/today", methods=["GET", "POST"])
 @login_required
 def dayChronoligical():
+
+    # sets current variable to the current date and time of the user's timezone
+    current = datetime.datetime.now()
+    localdate = current.strftime("%Y-%m-%d")
         
     """List view of assignments and events"""
     assignments = db.execute(
-            "SELECT id, title, course, date(deadline) as date, CASE WHEN StrFTime('%H', deadline) % 12 = 0 THEN 12 ELSE StrFTime('%H', deadline) % 12 END || ':' || StrFTime('%M', deadline) || ' ' || CASE WHEN CAST(StrFTime('%H', deadline) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'time', importance, notes FROM assignments WHERE user_id = ? AND completed != 1 AND date(deadline) = date('now') ORDER BY deadline ASC", session["user_id"])
+            "SELECT id, title, course, date(deadline) as date, CASE WHEN StrFTime('%H', deadline) % 12 = 0 THEN 12 ELSE StrFTime('%H', deadline) % 12 END || ':' || StrFTime('%M', deadline) || ' ' || CASE WHEN CAST(StrFTime('%H', deadline) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'time', importance, notes FROM assignments WHERE user_id = ? AND completed != 1 AND date(deadline) = ? ORDER BY deadline ASC", session["user_id"], localdate)
     events = db.execute(
-            "SELECT event_id, title, location, start_date, CASE WHEN StrFTime('%H', start_time) % 12 = 0 THEN 12 ELSE StrFTime('%H', start_time) % 12 END || ':' || StrFTime('%M', start_time) || ' ' || CASE WHEN CAST(StrFTime('%H', start_time) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'start_time', end_date, CASE WHEN StrFTime('%H', end_time) % 12 = 0 THEN 12 ELSE StrFTime('%H', end_time) % 12 END || ':' || StrFTime('%M', end_time) || ' ' || CASE WHEN CAST(StrFTime('%H', end_time) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'end_time', importance, notes FROM events WHERE user_id = ? AND completed != 1 AND end_date = date('now') ORDER BY start_date ASC, start_time ASC", session["user_id"])
+            "SELECT event_id, title, location, start_date, CASE WHEN StrFTime('%H', start_time) % 12 = 0 THEN 12 ELSE StrFTime('%H', start_time) % 12 END || ':' || StrFTime('%M', start_time) || ' ' || CASE WHEN CAST(StrFTime('%H', start_time) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'start_time', end_date, CASE WHEN StrFTime('%H', end_time) % 12 = 0 THEN 12 ELSE StrFTime('%H', end_time) % 12 END || ':' || StrFTime('%M', end_time) || ' ' || CASE WHEN CAST(StrFTime('%H', end_time) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'end_time', importance, notes FROM events WHERE user_id = ? AND completed != 1 AND end_date = ? ORDER BY start_date ASC, start_time ASC", session["user_id"], localdate)
     
     if request.method == "POST":
+
         assignment_id = request.form.get("assignment_id")
         db.execute("UPDATE assignments SET completed = '1' WHERE id = ?", assignment_id)
         event_id = request.form.get("event_id")
@@ -132,14 +152,18 @@ def dayChronoligical():
 @app.route("/urgent", methods=["GET", "POST"])
 @login_required
 def dayImportance():
-        
+
+    current = datetime.datetime.now()
+    localdate = current.strftime("%Y-%m-%d")
+
     """List view of assignments and events"""
     assignments = db.execute(
-            "SELECT id, title, course, date(deadline) as date, CASE WHEN StrFTime('%H', deadline) % 12 = 0 THEN 12 ELSE StrFTime('%H', deadline) % 12 END || ':' || StrFTime('%M', deadline) || ' ' || CASE WHEN CAST(StrFTime('%H', deadline) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'time', importance, notes FROM assignments WHERE user_id = ? AND completed != 1 AND date(deadline) = date('now') ORDER BY importance DESC", session["user_id"])
+            "SELECT id, title, course, date(deadline) as date, CASE WHEN StrFTime('%H', deadline) % 12 = 0 THEN 12 ELSE StrFTime('%H', deadline) % 12 END || ':' || StrFTime('%M', deadline) || ' ' || CASE WHEN CAST(StrFTime('%H', deadline) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'time', importance, notes FROM assignments WHERE user_id = ? AND completed != 1 AND date(deadline) = ? ORDER BY importance DESC", session["user_id"], localdate)
     events = db.execute(
-            "SELECT event_id, title, location, start_date, CASE WHEN StrFTime('%H', start_time) % 12 = 0 THEN 12 ELSE StrFTime('%H', start_time) % 12 END || ':' || StrFTime('%M', start_time) || ' ' || CASE WHEN CAST(StrFTime('%H', start_time) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'start_time', end_date, CASE WHEN StrFTime('%H', end_time) % 12 = 0 THEN 12 ELSE StrFTime('%H', end_time) % 12 END || ':' || StrFTime('%M', end_time) || ' ' || CASE WHEN CAST(StrFTime('%H', end_time) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'end_time', importance, notes FROM events WHERE user_id = ? AND completed != 1 AND end_date = date('now') ORDER BY importance DESC", session["user_id"])
+            "SELECT event_id, title, location, start_date, CASE WHEN StrFTime('%H', start_time) % 12 = 0 THEN 12 ELSE StrFTime('%H', start_time) % 12 END || ':' || StrFTime('%M', start_time) || ' ' || CASE WHEN CAST(StrFTime('%H', start_time) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'start_time', end_date, CASE WHEN StrFTime('%H', end_time) % 12 = 0 THEN 12 ELSE StrFTime('%H', end_time) % 12 END || ':' || StrFTime('%M', end_time) || ' ' || CASE WHEN CAST(StrFTime('%H', end_time) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'end_time', importance, notes FROM events WHERE user_id = ? AND completed != 1 AND end_date = ? ORDER BY importance DESC", session["user_id"], localdate)
     
     if request.method == "POST":
+
         assignment_id = request.form.get("assignment_id")
         db.execute("UPDATE assignments SET completed = '1' WHERE id = ?", assignment_id)
         event_id = request.form.get("event_id")

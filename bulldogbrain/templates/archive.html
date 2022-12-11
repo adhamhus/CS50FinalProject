@@ -7,19 +7,21 @@
 {% block main %}
 <style>
     body  {
-      background-image: url("https://cdn.wallpapersafari.com/7/71/FRDyLv.jpg");
-      background-size: 100%;
-      background-position-y: 0px;
+      background: url("static/images/yalebackground.jpg") no-repeat center center fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
     }
 </style>
-<strong style = "position: relative; top: -110px; font-size: 45px; color:white;" >Archive</strong>
+<strong style = "position: relative; top: -110px; font-size: 50px; color:white;">Archive</strong>
 <div class="row">
 <div class="column">
     <strong style = "position:relative; top:-130px; font-size: 40px; color:white;">Assignments</strong>
-            <table style = "position:relative; top:-130px" class="table table-striped">
+            <table style = "position:relative; top:-130px; width: 100%;" class="table table-striped">
             <thead>
                 <tr style="color:white;">
-                    <th><img src="static/images/checkMark.png" alt="Checkmark" width="20" height="20"></th>
+                    <th><img src="/static/images/checkMark.png" alt="Checkmark" width="20" height="20"></th>
                     <th>Assignment</th>
                     <th>Course</th>
                     <th>Deadline</th>
@@ -57,7 +59,7 @@
     </div>
     <div class="column">
         <strong style = "position:relative; top:-130px; font-size: 40px; color:white;">Events</strong>
-            <table style = "position:relative; top:-130px" class="table table-striped">
+            <table style = "position:relative; top:-130px; width: 100%;" class="table table-striped">
             <thead>
                 <tr style="color:white;">
                     <th><img src="static/images/checkMark.png" alt="Checkmark" width="20" height="20"></th>

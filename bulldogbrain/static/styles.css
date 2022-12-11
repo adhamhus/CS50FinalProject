@@ -1,78 +1,8 @@
-{box-sizing: border-box;}
-
-/* The popup form - hidden by default */
-.form-popup {
-    display: none;
-    position: fixed;
-    bottom: 0;
-    right: 15px;
-    border: 3px solid #f1f1f1;
-    z-index: 9;
-  }
-
-/* Button used to open the contact form - fixed at the bottom of the page */
-.open-button {
-  background-color: #555;
-  color: white;
-  padding: 16px 20px;
-  border: none;
-  cursor: pointer;
-  opacity: 0.8;
-  position: fixed;
-  right: 23px;
-  bottom: 28px;
-  width: 280px;
-}
-
-/* Add styles to the form container */
-.form-container {
-  max-width: 300px;
-  padding: 10px;
-  background-color: white;
-}
-
-/* Full-width input fields */
-.form-container input[type=text], .form-container input[type=password] {
-  width: 100%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
-  border: none;
-  background: #f1f1f1;
-}
-
-/* When the inputs get focus, do something */
-.form-container input[type=text]:focus, .form-container input[type=password]:focus {
-  background-color: #ddd;
-  outline: none;
-}
-
-/* Set a style for the submit/login button */
-.form-container .btn {
-  background-color: #0000FF;
-  color: white;
-  padding: 16px 20px;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  margin-bottom:10px;
-  opacity: 0.8;
-}
-
-/* Add a red background color to the cancel button */
-.form-container .cancel {
-  background-color: red;
-}
-
-/* Add some hover effects to buttons */
-.form-container .btn:hover, .open-button:hover {
-  opacity: 1;
-}
-
 /* Dropdown Button */
 .dropbtn {
-  background-color: #0000FF;
+  background-color: #622b48;
   color: white;
-  padding: 16px 22px;
+  padding: 12px 20px;
   font-size: 16px;
   border: none;
   border-radius: 25px;
@@ -100,7 +30,7 @@
 
 /* Links inside the dropdown */
 .dropdown-content a {
-  color: #0000FF;
+  color: #622b48;
   padding: 12px 18px;
   text-decoration: none;
   display: block;
@@ -156,13 +86,13 @@ tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
-html, body, {
+/* html, body, {
   position:fixed;
   top:0;
   bottom:0;
   left:0;
   right:0;
-}
+} */
 
 #body {
   width: 50%;
@@ -170,7 +100,7 @@ html, body, {
   }
 
 .button {
-  background-color: #0000FF;
+  background-color: #622b48;
   border: none;
   color: white;
   padding: 10px 18px;
@@ -186,57 +116,21 @@ html, body, {
 .button1 {
   background-color: white; 
   color: black; 
-  border: 2px solid #0000FF;
+  border: 2px solid #622b48;
 }
   
 .button1:hover {
-  background-color: #0000FF;
+  background-color: #622b48;
   color: white;
 }
 
 .loginbox {
-  border: 2px solid #0000FF;
+  border: 2px solid #622b48;
   border-radius: 4px;
 }
 
 .topRowLoggedIn {
   font-size: 16px;
-}
-
-.courseColor1 {
-  accent-color: red;
-  position: relative;
-  left: -50px;
-}
-
-.courseColor2 {
-  accent-color: blue;
-  position: relative;
-  left: -30px;
-}
-
-.courseColor3 {
-  accent-color: green;
-  position: relative;
-  left: -10px;
-}
-
-.courseColor4 {
-  accent-color: purple;
-  position: relative;
-  left: 10px;
-}
-
-.courseColor5 {
-  accent-color: lightcoral;
-  position: relative;
-  left: 30px;
-}
-
-.courseColor6 {
-  accent-color: orange;
-  position: relative;
-  left: 50px;
 }
 
 .center {
@@ -254,70 +148,4 @@ html, body, {
   font-family: "Times New Roman", Times, serif;
   font-size: 90px;
   color: white;
-}
-
-.dot1 {
-  height: 15px;
-  width: 15px;
-  background-color: red;
-  border-radius: 50%;
-  display: inline-block;
-  position: relative;
-  top: 25px;
-  left: -53.5px
-}
-
-.dot2 {
-  height: 15px;
-  width: 15px;
-  background-color: blue;
-  border-radius: 50%;
-  display: inline-block;
-  position: relative;
-  top: 25px;
-  left: -31.4px
-}
-
-.dot3 {
-  height: 15px;
-  width: 15px;
-  background-color: green;
-  border-radius: 50%;
-  display: inline-block;
-  position: relative;
-  top: 25px;
-  left: -9.1px
-}
-
-.dot4 {
-  height: 15px;
-  width: 15px;
-  background-color: purple;
-  border-radius: 50%;
-  display: inline-block;
-  position: relative;
-  top: 25px;
-  left: 13px
-}
-
-.dot5 {
-  height: 15px;
-  width: 15px;
-  background-color: lightcoral;
-  border-radius: 50%;
-  display: inline-block;
-  position: relative;
-  top: 25px;
-  left: 35.1px
-}
-
-.dot6 {
-  height: 15px;
-  width: 15px;
-  background-color: orange;
-  border-radius: 50%;
-  display: inline-block;
-  position: relative;
-  top: 25px;
-  left: 57.3px
 }
