@@ -5,50 +5,6 @@
 {% endblock %}
 
 {% block main %}
-<div>
-    <!-- <form action="/list" method="post">
-        
-        <p>Insert assignment or event # to remove or cross off:</p>
-        
-        <input autocomplete="off" class="form-control mx-auto w-auto" id="id" name="id" placeholder="#" type="int" required>
-        <input type="radio" id="assignment" name="type" value="assignment">
-        <label for="type">assignment</label>
-        <input type="radio" id="type" name="type" value="event">
-        <label for="type">event</label>
-        <button class="btn btn-primary" type="submit">Cross off</button>
-    </form> -->
-
-    <!-- THIS WORKS TOO!!!
-    <form action="/list" method="post">
-        <p>Insert assignment or event # to remove or cross off:</p>
-    
-        <input autocomplete="off" class="form-control mx-auto w-auto" id="id" name="id" placeholder="#" type="int" required>
-        <button class="btn btn-primary" name="type" type="submit" value="assignment">Cross off Assignment</button>
-        <button class="btn btn-primary" name="type" type="submit" value="event">Cross off Event</button>
-    </form>
-    <br> -->
-
-    <!-- <div>
-        <form action="/list" method="post">
-            <p>Insert assignment # to remove or cross off:</p>
-            <input autocomplete="off" class="form-control mx-auto w-auto" id="assignment_id" name="assignment_id" placeholder="Assignment #" type="int" required>
-            <button class="btn btn-primary" type="submit">Cross off Assignment</button>
-            <button class="btn btn-primary" type="submit">Delete Assignment</button>
-        </form>
-    </div> -->
-</div>
-<!-- <div>
-    {% if session["user_id"] %}
-    <div class="dropdown">
-        <button class="dropbtn">Add+</button>
-        <div class="dropdown-content">
-          <a href="/assignmentsform">Assignment</a>
-          <a href="/eventsform">Event</a>
-        </div>
-      </div>
-
-    {% endif %}
-</div> -->
 <style>
     body  {
       background: url("static/images/yalebackground.jpg") no-repeat center center fixed;
@@ -65,6 +21,7 @@
             <table style = "position:relative; top:-130px" class="table table-striped">
             <thead>
                 <tr style="color:white;">
+                    <!-- will display the headers for the rows of the information that is needed  -->
                     <th><img src="static/images/checkMark.png" alt="Checkmark" width="20" height="20"></th>
                     <th>Assignment</th>
                     <th>Course</th>
@@ -120,7 +77,7 @@
             <tbody>
                 <!-- TODO: Loop through the database entries to display them in this table -->
                 {% for events in events %}
-                <tr style="color:white;  background-color:rgba(137, 133, 133, 0.55);"">
+                <tr style="color:white;  background-color:rgba(137, 133, 133, 0.55);">
                     <td>
                         <form id="completion" action="/list" method="post">
                             <input autocomplete="off" type="checkbox" id="event_id" name="event_id" value="{{ events.event_id }}" onclick="submit()" required>
@@ -134,7 +91,6 @@
                          }
                         </script>
                     </td>
-                    <!-- <td>{{ events.event_id }}</td> -->
                     <td>{{ events.title }}</td>
                     <td>{{ events.start_date }} @ {{ events.start_time }}</td>
                     <td>{{ events.end_date }} @ {{ events.end_time }}</td>

@@ -124,30 +124,39 @@ def eventsform():
         # returns the original page if no submission was made
         return render_template("eventsform.html")
 
+#
 @app.route("/today", methods=["GET", "POST"])
 @login_required
 def dayChronoligical():
 
-    # sets current variable to the current date and time of the user's timezone
+    # sets variable to the current date and time of the user's timezone
     current = datetime.datetime.now()
+    # pulls only the date from the current variable
     localdate = current.strftime("%Y-%m-%d")
         
     """List view of assignments and events"""
+    # query that populates assignments table if the assignments are not compeleted and where the assignment's deadline = today's date
     assignments = db.execute(
             "SELECT id, title, course, date(deadline) as date, CASE WHEN StrFTime('%H', deadline) % 12 = 0 THEN 12 ELSE StrFTime('%H', deadline) % 12 END || ':' || StrFTime('%M', deadline) || ' ' || CASE WHEN CAST(StrFTime('%H', deadline) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'time', importance, notes FROM assignments WHERE user_id = ? AND completed != 1 AND date(deadline) = ? ORDER BY deadline ASC", session["user_id"], localdate)
+    # query that populates events table if the events are not compeleted and where the events's end date = today's date
     events = db.execute(
             "SELECT event_id, title, location, start_date, CASE WHEN StrFTime('%H', start_time) % 12 = 0 THEN 12 ELSE StrFTime('%H', start_time) % 12 END || ':' || StrFTime('%M', start_time) || ' ' || CASE WHEN CAST(StrFTime('%H', start_time) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'start_time', end_date, CASE WHEN StrFTime('%H', end_time) % 12 = 0 THEN 12 ELSE StrFTime('%H', end_time) % 12 END || ':' || StrFTime('%M', end_time) || ' ' || CASE WHEN CAST(StrFTime('%H', end_time) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'end_time', importance, notes FROM events WHERE user_id = ? AND completed != 1 AND end_date = ? ORDER BY start_date ASC, start_time ASC", session["user_id"], localdate)
     
+    # if statement to check for a submission
     if request.method == "POST":
 
+        # updates table when assignments or events are checked off
         assignment_id = request.form.get("assignment_id")
         db.execute("UPDATE assignments SET completed = '1' WHERE id = ?", assignment_id)
         event_id = request.form.get("event_id")
         db.execute("UPDATE events SET completed = '1' WHERE event_id = ?", event_id)
 
+        # returns user to today page
         return redirect("/today")
     else:
+        # returns the original page if no submission was made
         return render_template("/dayChronoligical.html", assignments=assignments, events=events)
+
 
 @app.route("/urgent", methods=["GET", "POST"])
 @login_required

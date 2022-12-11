@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block main %}
+<!-- sets the background for the event form - this is the same background used on other pages when user is logged in -->
 <style>
     body  {
       background: url("static/images/yalebackground.jpg") no-repeat center center fixed;
@@ -14,6 +15,7 @@
       background-size: cover;
     }
 </style>
+<!-- the following form includes all the options of what user can input when putting in an event  -->
 <form style="color:white; position: relative; bottom: 20px" action="/eventsform" method="post">
     <div class="mb-3">
         <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="title" name="title" placeholder="Event Name" type="text" required>
@@ -45,5 +47,6 @@
         <input class="form-control mx-auto w-auto" id="notes" name="notes" placeholder="Notes" type="Text">
     </div>
     <button class="btn btn-primary" type="submit">Add Event</button>
+    <!-- Once the user clicks Add Event it will add the event to the database -->
 </form>
 {% endblock %}
