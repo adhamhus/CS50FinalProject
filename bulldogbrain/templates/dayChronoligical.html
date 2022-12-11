@@ -75,7 +75,7 @@
                 <tbody>
                     <!-- TODO: Loop through the database entries to display them in this table -->
                     {% for events in events %}
-                    <tr>
+                    <tr style="color:white; background-color:rgba(137, 133, 133, 0.55);">
                         <td>
                             <form id="completion" action="/urgent" method="post">
                                 <input autocomplete="off" type="checkbox" id="event_id" name="event_id" value="{{ events.event_id }}" onclick="submit()" required>
@@ -88,7 +88,7 @@
                              });
                              }
                             </script>
-                        </td style="color:white;">
+                        </td>
                         <td>{{ events.title }}</td>
                         <td>{{ events.start_date }} @ {{ events.start_time }}</td>
                         <td>{{ events.end_date }} @ {{ events.end_time }}</td>
