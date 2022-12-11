@@ -157,7 +157,7 @@ def dayChronoligical():
         # returns the original page if no submission was made
         return render_template("/dayChronoligical.html", assignments=assignments, events=events)
 
-
+# page to show
 @app.route("/urgent", methods=["GET", "POST"])
 @login_required
 def dayImportance():
