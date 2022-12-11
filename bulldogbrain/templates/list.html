@@ -31,7 +31,6 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- TODO: Loop through the database entries to display them in this table -->
                 {% for assignments in assignments %}
 
                 <tr style="color:white;  background-color:rgba(137, 133, 133, 0.55);"">
@@ -49,7 +48,6 @@
                          }
                         </script>
                     </td>
-                    <!-- <td>{{ assignments.id }}</td> -->
                     <td>{{ assignments.title }}</td>
                     <td>{{ assignments.course }}</td>
                     <td>{{ assignments.date }} @ {{ assignments.time }}</td>
@@ -75,7 +73,6 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- TODO: Loop through the database entries to display them in this table -->
                 {% for events in events %}
                 <tr style="color:white;  background-color:rgba(137, 133, 133, 0.55);">
                     <td>

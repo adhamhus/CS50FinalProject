@@ -37,7 +37,7 @@ CREATE TABLE 'courses'(
     REFERENCES users (id));
 
 -- FOR CONVERTING TO 12-HOUR CLOCK
---from https://stackoverflow.com/questions/535855/can-you-format-24-hour-time-string-into-12-hour-time-string-with-am-pm
+--source: https://stackoverflow.com/questions/535855/can-you-format-24-hour-time-string-into-12-hour-time-string-with-am-pm
 
 -- SELECT 
 --     PatientName, 

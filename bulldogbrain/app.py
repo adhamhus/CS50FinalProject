@@ -124,7 +124,7 @@ def eventsform():
         # returns the original page if no submission was made
         return render_template("eventsform.html")
 
-#
+# page to show all assignments and events organized chronologically
 @app.route("/today", methods=["GET", "POST"])
 @login_required
 def dayChronoligical():
@@ -135,10 +135,10 @@ def dayChronoligical():
     localdate = current.strftime("%Y-%m-%d")
         
     """List view of assignments and events"""
-    # query that populates assignments table if the assignments are not compeleted and where the assignment's deadline = today's date
+    # query that populates assignments table if the assignments are not compeleted and where the assignment's deadline = today's date organized by date
     assignments = db.execute(
             "SELECT id, title, course, date(deadline) as date, CASE WHEN StrFTime('%H', deadline) % 12 = 0 THEN 12 ELSE StrFTime('%H', deadline) % 12 END || ':' || StrFTime('%M', deadline) || ' ' || CASE WHEN CAST(StrFTime('%H', deadline) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'time', importance, notes FROM assignments WHERE user_id = ? AND completed != 1 AND date(deadline) = ? ORDER BY deadline ASC", session["user_id"], localdate)
-    # query that populates events table if the events are not compeleted and where the events's end date = today's date
+    # query that populates events table if the events are not compeleted and where the events' end date = today's date organized by date
     events = db.execute(
             "SELECT event_id, title, location, start_date, CASE WHEN StrFTime('%H', start_time) % 12 = 0 THEN 12 ELSE StrFTime('%H', start_time) % 12 END || ':' || StrFTime('%M', start_time) || ' ' || CASE WHEN CAST(StrFTime('%H', start_time) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'start_time', end_date, CASE WHEN StrFTime('%H', end_time) % 12 = 0 THEN 12 ELSE StrFTime('%H', end_time) % 12 END || ':' || StrFTime('%M', end_time) || ' ' || CASE WHEN CAST(StrFTime('%H', end_time) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'end_time', importance, notes FROM events WHERE user_id = ? AND completed != 1 AND end_date = ? ORDER BY start_date ASC, start_time ASC", session["user_id"], localdate)
     
@@ -157,32 +157,40 @@ def dayChronoligical():
         # returns the original page if no submission was made
         return render_template("/dayChronoligical.html", assignments=assignments, events=events)
 
-# page to show
+# page to show all assignments and events organized by importance (as/if specified by the user)
 @app.route("/urgent", methods=["GET", "POST"])
 @login_required
 def dayImportance():
 
+    # sets variable to the current date and time of the user's timezone
     current = datetime.datetime.now()
+    # pulls only the date from the current variable
     localdate = current.strftime("%Y-%m-%d")
 
     """List view of assignments and events"""
+    # query that populates assignments table if the assignments are not compeleted and where the assignment's deadline = today's date organized by importance
     assignments = db.execute(
             "SELECT id, title, course, date(deadline) as date, CASE WHEN StrFTime('%H', deadline) % 12 = 0 THEN 12 ELSE StrFTime('%H', deadline) % 12 END || ':' || StrFTime('%M', deadline) || ' ' || CASE WHEN CAST(StrFTime('%H', deadline) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'time', importance, notes FROM assignments WHERE user_id = ? AND completed != 1 AND date(deadline) = ? ORDER BY importance DESC", session["user_id"], localdate)
+    # query that populates events table if the events are not compeleted and where the events' end date = today's date organized by importance
     events = db.execute(
             "SELECT event_id, title, location, start_date, CASE WHEN StrFTime('%H', start_time) % 12 = 0 THEN 12 ELSE StrFTime('%H', start_time) % 12 END || ':' || StrFTime('%M', start_time) || ' ' || CASE WHEN CAST(StrFTime('%H', start_time) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'start_time', end_date, CASE WHEN StrFTime('%H', end_time) % 12 = 0 THEN 12 ELSE StrFTime('%H', end_time) % 12 END || ':' || StrFTime('%M', end_time) || ' ' || CASE WHEN CAST(StrFTime('%H', end_time) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'end_time', importance, notes FROM events WHERE user_id = ? AND completed != 1 AND end_date = ? ORDER BY importance DESC", session["user_id"], localdate)
     
+    # if statement to check for a submission
     if request.method == "POST":
-
+        
+        # updates table when assignments or events are checked off
         assignment_id = request.form.get("assignment_id")
         db.execute("UPDATE assignments SET completed = '1' WHERE id = ?", assignment_id)
         event_id = request.form.get("event_id")
         db.execute("UPDATE events SET completed = '1' WHERE event_id = ?", event_id)
 
+        # returns user to urgent page
         return redirect("/urgent")
     else:
+        # returns the original page if no submission was made
         return render_template("/dayImportance.html", assignments=assignments, events=events)
 
-
+# page for the user to login
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in"""
@@ -218,7 +226,7 @@ def login():
     else:
         return render_template("login.html")
 
-
+# route when user logs out to clear the session and redirect to logged out homepage
 @app.route("/logout")
 def logout():
     """Log user out"""
@@ -229,7 +237,7 @@ def logout():
     # Redirect user to login form
     return redirect("/")
 
-
+# page for user to register
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """Register user"""
@@ -279,24 +287,31 @@ def register():
     else:
         return render_template("register.html")
 
-
+# page that shows all assignments and events that user has checked off
 @app.route("/archive", methods=["GET", "POST"])
 def archive():
     """List view of assignments and events"""
-    # Populates the list html table
+    
+    # populates the assignment table
     assignments = db.execute(
         "SELECT id, title, course, date(deadline) as date, CASE WHEN StrFTime('%H', deadline) % 12 = 0 THEN 12 ELSE StrFTime('%H', deadline) % 12 END || ':' || StrFTime('%M', deadline) || ' ' || CASE WHEN CAST(StrFTime('%H', deadline) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'time', importance, notes FROM assignments WHERE user_id = ? AND completed = 1 ORDER BY deadline ASC", session["user_id"])
+    # populates the events table
     events = db.execute(
         "SELECT event_id, title, location, start_date, CASE WHEN StrFTime('%H', start_time) % 12 = 0 THEN 12 ELSE StrFTime('%H', start_time) % 12 END || ':' || StrFTime('%M', start_time) || ' ' || CASE WHEN CAST(StrFTime('%H', start_time) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'start_time', end_date, CASE WHEN StrFTime('%H', end_time) % 12 = 0 THEN 12 ELSE StrFTime('%H', end_time) % 12 END || ':' || StrFTime('%M', end_time) || ' ' || CASE WHEN CAST(StrFTime('%H', end_time) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'end_time', importance, notes FROM events WHERE user_id = ? AND completed = 1 ORDER BY start_date ASC, start_time ASC", session["user_id"])
     
+    # if statement to check for a submission
     if request.method == "POST":
+
+        # updates table when assignments or events are checked off
         assignment_id = request.form.get("assignment_id")
         db.execute("UPDATE assignments SET completed = '0' WHERE id = ?", assignment_id)
         event_id = request.form.get("event_id")
         db.execute("UPDATE events SET completed = '0' WHERE event_id = ?", event_id)
 
+        # returns user to archive page
         return redirect("/archive")
     else:
+        # returns the original page if no submission was made
         return render_template("archive.html", assignments=assignments, events=events)
 
 
@@ -304,17 +319,24 @@ def archive():
 def list():
     
     """List view of assignments and events"""
+    # populates the assignment table
     assignments = db.execute(
             "SELECT id, title, course, date(deadline) as date, CASE WHEN StrFTime('%H', deadline) % 12 = 0 THEN 12 ELSE StrFTime('%H', deadline) % 12 END || ':' || StrFTime('%M', deadline) || ' ' || CASE WHEN CAST(StrFTime('%H', deadline) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'time', importance, notes FROM assignments WHERE user_id = ? AND completed != 1 ORDER BY deadline ASC", session["user_id"])
+    # populates the events table
     events = db.execute(
             "SELECT event_id, title, location, start_date, CASE WHEN StrFTime('%H', start_time) % 12 = 0 THEN 12 ELSE StrFTime('%H', start_time) % 12 END || ':' || StrFTime('%M', start_time) || ' ' || CASE WHEN CAST(StrFTime('%H', start_time) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'start_time', end_date, CASE WHEN StrFTime('%H', end_time) % 12 = 0 THEN 12 ELSE StrFTime('%H', end_time) % 12 END || ':' || StrFTime('%M', end_time) || ' ' || CASE WHEN CAST(StrFTime('%H', end_time) AS INTEGER) > 12 THEN 'PM' ELSE 'AM' END 'end_time', importance, notes FROM events WHERE user_id = ? AND completed != 1 ORDER BY start_date ASC, start_time ASC", session["user_id"])
     
+    # if statement to check for a submission
     if request.method == "POST":
+
+        # updates table when assignments or events are checked off
         assignment_id = request.form.get("assignment_id")
         db.execute("UPDATE assignments SET completed = '1' WHERE id = ?", assignment_id)
         event_id = request.form.get("event_id")
         db.execute("UPDATE events SET completed = '1' WHERE event_id = ?", event_id)
 
+        # returns user to list page
         return redirect("/list")
     else:
+        # returns the original page if no submission was made
         return render_template("list.html", assignments=assignments, events=events)
